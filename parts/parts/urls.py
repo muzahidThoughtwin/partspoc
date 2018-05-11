@@ -21,5 +21,6 @@ urlpatterns = [
 	url(r'^', include('app.equipment.urls')),
     url(r'^', include('app.make.urls')),
     url(r'^', include('app.users.urls')),
+    url(r'^', include('app.part_details.urls')),
     url(r'^admin/', admin.site.urls),
 ]

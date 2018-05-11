@@ -8,7 +8,7 @@ from app.make.serializers import MakeSerializer
 from app.make.models import Make
 
 # Create your views here.
-class AddMake(APIView):
+class MakeViewset(APIView):
 	def get(self,request,make_id=None):
 		try:
 			if(make_id):

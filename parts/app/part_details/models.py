@@ -56,7 +56,6 @@ class PartsDetail(models.Model):
 	fuel = models.CharField(max_length=255)
 	engine = models.CharField(max_length=255)
 	image =  models.ImageField(upload_to = 'pic_folder/', default ='pic_folder/no-img.jpg')
-	
 	is_deleted = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True, blank=True)
 	updated_at = models.DateTimeField(auto_now_add=True, blank=True)
