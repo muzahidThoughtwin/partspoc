@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'app.built',
     'app.users',
     'app.master',
+    'app.part_details',
 ]
 
 MIDDLEWARE = [
@@ -137,11 +138,15 @@ ADMIN_LOGIN_URL = "http://54.205.253.107/admin/login"
 TOOLKIT_LOGIN_URL = "http://54.205.253.107/#!/"
 
 # Add these new lines
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATIC_URL = '/static/'
+STATICFILES_DIRS=[
+os.path.join(BASE_DIR,'static')
 
+    ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = ''
+MEDIA_ROOT = os.path.join(BASE_DIR,'/home/hp/Projects/django/parts/parts/static')
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 

@@ -9,10 +9,14 @@ from app.make.models import Make
 
 # Create your views here.
 class AddMake(APIView):
-	def get(self,request):
+	def get(self,request,make_id=None):
 		try:
-			get_make = Make.objects.filter(is_deleted=False)
-			make_data = MakeSerializer(get_make,many=True)
+			if(make_id):
+				get_make = Make.objects.filter(is_deleted=False,pk=make_id)[0]
+				make_data = MakeSerializer(get_make)
+			else:
+				get_make = Make.objects.filter(is_deleted=False)
+				make_data = MakeSerializer(get_make,many=True)
 			return ApiResponse().success(make_data.data, 200)
 		except Exception as err:
 			print(err)
@@ -30,6 +34,20 @@ class AddMake(APIView):
 			print(err)
 			return ApiResponse().error("Error in inserting Equipment", 400)
 		return ApiResponse().success("Successfully inserted", 201)
+
+	def put(self,request,make_id):
+		try:
+			make_data = Make.objects.get(pk=make_id)
+			update_data = MakeSerializer(make_data,data=request.data)
+			if update_data.is_valid():
+				update_data.save()
+				return ApiResponse().success("Successfully Updated", 200)
+			else:
+				return ApiResponse().error("Please send valid id", 400)
+		except Exception as err:
+			print(err)
+			return ApiResponse().error("Error in Updating Equipment", 400)
+
 
 	def delete(self,request,make_id):
 		try:

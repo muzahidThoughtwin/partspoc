@@ -22,14 +22,32 @@ class AddEquipment(APIView):
 			print(err)
 			return ApiResponse().error("Error in inserting Equipment", 400)
 
-	def get(self,request):
+	def get(self,request,equipment_id=None):
 		try:
-			get_equipment = Equipment.objects.filter(is_deleted=False)
-			equipment_data = EquipmentSerializer(get_equipment,many=True)
+			if(equipment_id):
+				get_equipment = Equipment.objects.filter(is_deleted=False,pk=equipment_id)[0]
+				equipment_data = EquipmentSerializer(get_equipment)
+			else:
+				get_equipment = Equipment.objects.filter(is_deleted=False)
+				equipment_data = EquipmentSerializer(get_equipment, many=True)
 			return ApiResponse().success(equipment_data.data, 200)
 		except Exception as err:
 			print(err)
-			return ApiResponse().error("Error in Getting Equipment", 400)
+			return ApiResponse().error("Please send valid id", 400)
+
+	def put(self,request,equipment_id):
+		try:
+			equipment_data = Equipment.objects.get(pk=equipment_id)
+			update_data = EquipmentSerializer(equipment_data,data=request.data)
+			if update_data.is_valid():
+				update_data.save()
+				return ApiResponse().success("Successfully Updated", 200)
+			else:
+				return ApiResponse().error("Please send valid id", 400)
+		except Exception as err:
+			print(err)
+			return ApiResponse().error("Error in Updating Equipment", 400)
+			
 
 	def delete(self,request,equipment_id):
 		try:
