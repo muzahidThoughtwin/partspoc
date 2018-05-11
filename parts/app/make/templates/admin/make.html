@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Make</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script><!-- Include the above in your HEAD tag -->
+<script type="text/javascript">
+   $(document).ready(function(event) {
+    $("#submit").click(function(){
+    var url = "http://127.0.0.1:8000/make";
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        data : {
+            "equipment":$("#equipment").val(),
+            "make_type":$("#type").val(),
+            "name":$("#name").val(),
+            "title":$("#title").val(),
+            "description":$("#description").val(),
+            "is_last":$("#isLast").val(),
+            "parent":$("#parent").val(),
+        },
+        success: function(response) {
+            if (response) {
+                console.log(response);
+                if (response.data.responseCode == 201) {
+                    alert("Make details Feeded!");
+                    console.log("response 201 coming");
+                }
+                if (response.data.responseCode == 400) {
+                    console.log("Error details")
+                    alert("Error in creating Make")
+                }
+
+            }
+        },
+        error: function(err) {
+            return false;
+        }
+    });
+    });
+});
+</script>
+<style type="text/css">
+
+.red{
+    color:red;
+    }
+.form-area
+{
+    background-color: #FAFAFA;
+    padding: 10px 40px 60px;
+    margin: 10px 0px 60px;
+    border: 1px solid GREY;
+    }    
+
+</style>
+<script type="text/javascript">
+    
+    
+</script>
+</head>
+<body>
+
+<div class="container">
+<div class="col-md-5">
+    <div class="form-area">  
+        <form role="form">
+        <br style="clear:both">
+                    <h3 style="margin-bottom: 25px; text-align: center;">Make</h3>
+                    <label> Eqiupment </label>
+                    <div class="form-group">
+                        <!-- <span>Project Name:</span> -->
+                        
+                        <select id="equipment" name="equipment">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                     <label> Make Type </label>
+                     <div class="form-group">
+                        <input type="text" class="form-control" id="type" name="type" placeholder="Make Type" required>
+                    </div>
+                    <label> Name </label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                    </div>
+                    <label> Title </label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+                    </div>
+                    <label> Description </label>
+                    <div class="form-group">
+                    <textarea class="form-control" type="textarea" id="description" placeholder="Description" maxlength="140" rows="7"></textarea>                
+                    </div>
+            
+        <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Save</button>
+        </form>
+    </div>
+</div>
+</div>
+</body>
+</html>
