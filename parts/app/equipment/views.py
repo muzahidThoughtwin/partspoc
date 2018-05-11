@@ -41,4 +41,4 @@ class AddEquipment(APIView):
 
 class EquipmentTemplate(TemplateView):
 	def get(self,request):
-		return render(request,'admin/equipment.html')
+		return render(request,'admin/add_equipment.html')
