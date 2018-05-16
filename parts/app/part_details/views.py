@@ -59,9 +59,9 @@ class PartsTypeViewset(APIView):
 			print(err)
 			return ApiResponse().error("Please send valid id", 400)
 
-# class EquipmentTemplate(TemplateView):
-# 	def get(self,request):
-# 		return render(request,'admin/equipment.html')
+class PartsTypeTemplate(TemplateView):
+	def get(self,request):
+		return render(request,'admin/partstype.html')
 
 class PartsNameViewset(APIView):
 	def get(self,request,parts_name_id=None):
@@ -112,30 +112,41 @@ class PartsNameViewset(APIView):
 			print(err)
 			return ApiResponse().error("Please send valid id", 400)
 
-# class EquipmentTemplate(TemplateView):
-# 	def get(self,request):
-# 		return render(request,'admin/equipment.html')
+class PartsNameTemplate(TemplateView):
+	def get(self,request):
+		return render(request,'admin/partsname.html')
 
 class PartsDetailViewset(APIView):
 	def get(self,request,parts_detail_id=None):
 		try:
-			if(parts_detail_id):
+			if(request.GET.get('parts_name')):
+				# get_parts_detail = PartsDetail.objects.filter(is_deleted=False,parts_name=request.GET.get('parts_name'))
+				# get_parts_detail_data = PartsDetailSerializer(get_parts_detail,many=True)
+
+
+				get_parts_detail_data = PartsDetailSerializer(PartsDetail.objects.filter(is_deleted=False,parts_name=request.GET.get('parts_name')), many=True)
+				return ApiResponse().success(get_parts_detail_data.data, 200)
+			elif(parts_detail_id):
 				get_parts_detail = PartsDetail.objects.filter(is_deleted=False,pk=parts_detail_id)[0]
 				get_parts_detail_data = PartsDetailSerializer(get_parts_detail)
+				return ApiResponse().success(get_parts_detail_data.data, 200)
 			else:
 				get_parts_detail = PartsDetail.objects.filter(is_deleted=False)
 				get_parts_detail_data = PartsDetailSerializer(get_parts_detail, many=True)
-			return ApiResponse().success(get_parts_detail_data.data, 200)
+				return ApiResponse().success(get_parts_detail_data.data, 200)
 		except Exception as err:
 			print(err)
-			return ApiResponse().error("Please send valid id", 400)
+			return ApiResponse().error(get_parts_detail_data.errors, 400)
 
 	def post(self,request):
 		try:
-			print(request.data)
+			# print(request.data)
 			parts_detail_data = PartsDetailSerializer(data=request.data)
+
 			if not(parts_detail_data.is_valid()):
-				return ApiResponse().error("Error", 400)
+				print("here")
+				return ApiResponse().error(parts_detail_data.errors, 400)
+
 			parts_detail_data.save()
 			return ApiResponse().success("Successfully inserted", 201)
 		except Exception as err:
@@ -165,6 +176,10 @@ class PartsDetailViewset(APIView):
 			print(err)
 			return ApiResponse().error("Please send valid id", 400)
 
-# class EquipmentTemplate(TemplateView):
-# 	def get(self,request):
-# 		return render(request,'admin/equipment.html')
+class PartsDetailTemplate(TemplateView):
+	def get(self,request):
+		return render(request,'admin/partsdetail.html')
+
+class PartsAllDetailTemplate(TemplateView):
+	def get(self,request,parts_detail_id):
+		return render(request,'admin/partsalldetail.html')

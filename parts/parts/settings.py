@@ -146,7 +146,7 @@ os.path.join(BASE_DIR,'static')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = ''
-MEDIA_ROOT = os.path.join(BASE_DIR,'/home/hp/Projects/django/parts/parts/static')
+MEDIA_ROOT = os.path.join(BASE_DIR,'/home/hp/Projects/django/partspoc/parts/static')
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 

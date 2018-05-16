@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"  type="text/css" />
+<link rel="stylesheet" href="/static/css/bootstrap.min.css"  type="text/css" />
+<link rel="stylesheet" href="/static/css/font-awesome.min.css"  type="text/css" />
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="/static/customjs/ajax.js"></script>
+<script src="/static/customjs/alldetails.js"></script> 
+<link href="/static/css/style.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript">
+   $(document).ready(function(){
+            //-- Click on detail
+            $("ul.menu-items > li").on("click",function(){
+                $("ul.menu-items > li").removeClass("active");
+                $(this).addClass("active");
+            })
+
+            $(".attr,.attr2").on("click",function(){
+                var clase = $(this).attr("class");
+
+                $("." + clase).removeClass("active");
+                $(this).addClass("active");
+            })
+
+            //-- Click on QUANTITY
+            $(".btn-minus").on("click",function(){
+                var now = $(".section > div > input").val();
+                if ($.isNumeric(now)){
+                    if (parseInt(now) -1 > 0){ now--;}
+                    $(".section > div > input").val(now);
+                }else{
+                    $(".section > div > input").val("1");
+                }
+            })            
+            $(".btn-plus").on("click",function(){
+                var now = $(".section > div > input").val();
+                if ($.isNumeric(now)){
+                    $(".section > div > input").val(parseInt(now)+1);
+                }else{
+                    $(".section > div > input").val("1");
+                }
+            })                        
+        })   
+
+</script>
+</head>
+
+
+    <body>   
+   <div class="wrapper">
+   <!-- fixed plugin  -->
+   <div class="fixed-plugin"></div>
+   <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg" color-on-scroll="500">
+      <div class="container-fluid">
+         <a class="navbar-brand" href="/search-1">XPART</a>
+      </div>
+   </nav>
+  <div id="headd"></div>
+        <div class="container-fluid" style="margin-top:20px;">
+          <div class="row">
+               <div class="col-md-4 item-photo">
+                  <span id="image"> <br><br></span>
+                </div>
+                <div class="col-md-4 detailtext" style="background-color:#f5f5f5;padding: 15px;">
+                    <!-- Datos del vendedor y titulo del producto -->
+                    <h3 id="title" style="margin-bottom: 15px;"></h3>    
+                    
+        
+                    <!-- Precios -->
+                    <h6 class="title-price">PRICE : <span>$</span><span id="price" ></span>
+                    </h6>
+                    <h6 class="title-attr">REFERENCE : <span id="ref"></span></h6> 
+                     <h6 class="title-attr">FUEL : <span class="attr2" id="fuel"></span></h6>
+                    <!-- Detalles especificos del producto -->
+                    
+                       
+                    <div class="section" style="padding-bottom:20px;">
+                        <h6 class="title-attr">QUANTITY</h6>                    
+                        <div style="margin-top: 10px;">
+                            <div class="btn-minus font18px">-</div>
+                            <input value="1" />
+                            <div class="btn-plus font18px">+</div>
+                        </div>
+                    </div> 
+
+                    <div class="section" style="padding-bottom:20px;">
+                          <h6 class="title-attr" style="margin-top:15px;" >Remarks</h6> 
+                          <span id="remarks"></span>
+                    </div>
+                    <!-- Botones de compra -->
+                                                           
+                </div>   
+                <div class="col-sm-4" style="background-color:#f5f5f5;">
+                    <div  style="padding:20px;">
+                        <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add To Part Inquiry</button>
+                        <br><br>
+                         <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Share</button>
+                         <br><br>
+                          <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Warehouse Availability</button>
+                      
+                    </div> 
+                </div>
+                <!-- <div class="col-xs-9">
+                    <ul class="menu-items">
+                        <li class="active">Detalle del producto</li>
+                        <li>Garantía</li>
+                        <li>Vendedor</li>
+                        <li>Envío</li>
+                    </ul> -->
+                    <!-- <div style="width:100%;border-top:1px solid silver">
+                        <p style="padding:15px;">
+                            <small>
+                            Stay connected either on the phone or the Web with the Galaxy S4 I337 from Samsung. With 16 GB of memory and a 4G connection, this phone stores precious photos and video and lets you upload them to a cloud or social network at blinding-fast speed. With a 17-hour operating life from one charge, this phone allows you keep in touch even on the go. 
+        
+                            With its built-in photo editor, the Galaxy S4 allows you to edit photos with the touch of a finger, eliminating extraneous background items. Usable with most carriers, this smartphone is the perfect companion for work or entertainment.
+                            </small>
+                        </p>
+                      
+                    </div> -->
+                <!-- </div>     -->
+            </div>
+        </div>        
+    </body>
+</html>

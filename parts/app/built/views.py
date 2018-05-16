@@ -10,7 +10,17 @@ from app.built.models import Built
 class AddBuilt(APIView):
 	def get(self,request,built_id=None):
 		try:
-			if(built_id):
+
+			if(request.GET.get("make")):
+				print('--------------------------')
+				print(request.GET.get("make"))
+				print('--------------------------')
+				get_built = Built.objects.filter(is_deleted=False,make=request.GET.get("make"),level=0)
+				built_data = BuiltSerializer(get_built, many=True)
+			elif(request.GET.get("parent_id")):
+				get_built = Built.objects.filter(is_deleted=False,parent_id=request.GET.get("parent_id"))
+				built_data = BuiltSerializer(get_built, many=True)
+			elif(built_id):
 				get_built = Built.objects.filter(is_deleted=False,pk=built_id)[0]
 				built_data = BuiltSerializer(get_built)
 			else:
@@ -27,7 +37,7 @@ class AddBuilt(APIView):
 			print(request.data)
 			built_data = BuiltSerializer(data=request.data)
 			if not(built_data.is_valid()):
-				return ApiResponse().error("Error", 400)
+				return ApiResponse().error(built_data.errors, 400)
 			built_data.save()
 			return ApiResponse().success("Built Successfully inserted", 201)
 		except Exception as err:

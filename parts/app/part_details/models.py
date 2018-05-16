@@ -5,10 +5,10 @@ from app.make.models import Make
 import datetime
 # Create your models here.
 class PartsType(models.Model):
-	equipment = models.ForeignKey(Equipment, blank=True, null=True)
+	equipment = models.ForeignKey(Equipment,null=True,blank=True)
 	built = models.ForeignKey(Built, blank=True, null=True)
 	make = models.ForeignKey(Make, blank=True, null=True)
-	name = models.CharField(max_length=255)
+	name = models.CharField(max_length=255,null=True,blank=True)
 	title = models.CharField(max_length=255,null=True,blank=True)
 	description = models.TextField(null=True,blank=True)
 	is_deleted = models.BooleanField(default=False)
@@ -20,11 +20,11 @@ class PartsType(models.Model):
 		db_table = 'parts_type'
 
 class PartsName(models.Model):
+	equipment = models.ForeignKey(Equipment,null=True,blank=True)
 	parts_type = models.ForeignKey(PartsType)
-	equipment = models.ForeignKey(Equipment, blank=True, null=True)
 	built = models.ForeignKey(Built, blank=True, null=True)
 	make = models.ForeignKey(Make, blank=True, null=True)
-	name = models.CharField(max_length=255)
+	name = models.CharField(max_length=255,null=True,blank=True)
 	title = models.CharField(max_length=255, null=True,blank=True)
 	description = models.TextField(null=True,blank=True)
 	is_deleted = models.BooleanField(default=False)
@@ -36,7 +36,7 @@ class PartsName(models.Model):
 		db_table = 'parts_name'
 
 class PartsDetail(models.Model):
-	equipment = models.ForeignKey(Equipment, blank=True, null=True)
+	equipment = models.ForeignKey(Equipment,null=True,blank=True)
 	built = models.ForeignKey(Built, blank=True, null=True)
 	make = models.ForeignKey(Make, blank=True, null=True)
 	parts_type = models.ForeignKey(PartsType)
@@ -46,6 +46,7 @@ class PartsDetail(models.Model):
 	description = models.TextField(null=True,blank=True)
 	ref = models.IntegerField()
 	code = models.CharField(max_length=255)
+	price = models.CharField(max_length=255,null=True,blank=True)
 	part = models.CharField(max_length=255)
 	slp = models.CharField(max_length=255)
 	qty	= models.IntegerField()

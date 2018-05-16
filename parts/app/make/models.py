@@ -3,7 +3,7 @@ from app.equipment.models import Equipment
 
 # Create your models here.
 class Make(models.Model):
-	equipment = models.ForeignKey(Equipment)
+	equipment = models.ForeignKey(Equipment,null=True,blank=True)
 	make_type = models.CharField(max_length=255)
 	name = models.CharField(max_length=255)
 	title = models.CharField(max_length=255)

@@ -27,12 +27,12 @@ class MakeViewset(APIView):
 		try:
 			make_data = MakeSerializer(data=request.data)
 			if not(make_data.is_valid()):
-				return ApiResponse().error("Error", 400)
+				return ApiResponse().error(make_data.errors, 400)
 			make_data.save()
 			return ApiResponse().success("Successfully inserted", 201)
 		except Exception as err:
 			print(err)
-			return ApiResponse().error("Error in inserting Equipment", 400)
+			return ApiResponse().error(make_data.errors, 400)
 		return ApiResponse().success("Successfully inserted", 201)
 
 	def put(self,request,make_id):

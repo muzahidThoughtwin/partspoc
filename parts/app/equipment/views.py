@@ -9,7 +9,7 @@ from app.equipment.models import Equipment
 
 
 # Create your views here.
-class AddEquipment(APIView):
+class EquipmentViewset(APIView):
 	def post(self,request):
 		try:
 			print(request.data)
